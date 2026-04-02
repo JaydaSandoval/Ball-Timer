@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clientWidth()</title>
+</head>
+<body>
+    <img src="football.png" id="ball" alt="ball" style="position:absolute; left:0px; top:50px; width:200px; height:200px;">
+
+    <button onclick="startMoving()">Move Ball</button>
+    <button onclick="stopMoving()">Stop ball</button>
+    <script>
+        console.log(document.body.clientWidth);
+        let ballImage = document.getElementById('ball');
+        let timerId = null;
+        function startMoving(){
+            //Ensure that timerId is not running
+            if(timerId !== null){
+                return;
+            }
+            timerId = setInterval(moveBall, 10);
+        }
+
+        function moveBall(){
+            let left = parseInt(ballImage.style.left); //Current left px
+
+            //check if ball is has 
+            if(left + ballImage.width >= document.body.clientWidth){
+                clearInterval(timerId);
+                timerId = null;
+                return;
+            }
+            ballImage.style.left = left + 5 + "px";
+        }
+
+        function stopMoving(){
+            clearInterval(timerId);
+            timerId = null;
+        }
+    </script>
+</body>
+</html>
